@@ -74,7 +74,7 @@ public class TennisTest {
             if (i < this.player2Score)
                 game.wonPoint("player2");
         }
-        assertEquals(this.expectedScore, game.getScore());
+        assertEquals(this.expectedScore, game.getLiteralScore());
     }
 
     @Test
