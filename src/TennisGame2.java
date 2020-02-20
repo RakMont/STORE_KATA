@@ -1,7 +1,11 @@
 
 public class TennisGame2 implements TennisGame
 {
-    public int Player1Points = 0;
+    private static final int FORTY = 3;
+	private static final int THIRTY = 2;
+	private static final int FIFTEEN = 1;
+	private static final int LOVE = 0;
+	public int Player1Points = 0;
     public int Player2Points = 0;
     
    
@@ -54,21 +58,21 @@ public class TennisGame2 implements TennisGame
 
 
 	private boolean isTie() {
-		return Player1Points == Player2Points && Player1Points < 4;
+		return Player1Points == Player2Points && Player1Points < FORTY;
 	}
 
 	private boolean isDeuce() {
-		return Player1Points==Player2Points && Player1Points>=3;
+		return Player1Points==Player2Points && Player1Points>=FORTY;
 	}
 	private String getLiteral(int playerPoints) {
 		String result="";
-		if (playerPoints==0)
+		if (playerPoints==LOVE)
 			result = "Love";
-		if (playerPoints==1)
+		if (playerPoints==FIFTEEN)
 			result = "Fifteen";
-		if (playerPoints==2)
+		if (playerPoints==THIRTY)
 			result = "Thirty";
-		if (playerPoints==3)
+		if (playerPoints==FORTY)
 			result = "Forty";
 		return result;
 	}
