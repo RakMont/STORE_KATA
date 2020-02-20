@@ -19,7 +19,10 @@ public class TennisGame2 implements TennisGame
 		if (isNormal())
 			score = getLiteral(P1point)+ "-" + getLiteral(P2point);
 		
-        score = tie(score);
+		if (isTie())
+		    score =getLiteral(P1point)+ "-All";
+		
+		
         score = deuce(score);
         
        
@@ -79,14 +82,6 @@ public class TennisGame2 implements TennisGame
 		if (playerPoints==3)
 			result = "Forty";
 		return result;
-	}
-
-	private String tie(String score) {
-		if (isTie())
-        {
-            score =getLiteral(P1point)+ "-All";
-        }
-		return score;
 	}
 
 	private boolean isTie() {
