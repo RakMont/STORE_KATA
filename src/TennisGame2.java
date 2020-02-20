@@ -30,23 +30,18 @@ public class TennisGame2 implements TennisGame
 		if (isAdvantage(P2point,P1point))
 		    score = "Advantage player2";
 		
+		if (isWinner(P1point,P2point))
+		    score = "Win for player1";
+		
+		if (isWinner(P2point,P1point))
+		    score = "Win for player2";
 		
 		
-        score = win(score);
+		
+		
+        
         return score;
     }
-
-	private String win(String score) {
-		if (isWinner(P1point,P2point))
-        {
-            score = "Win for player1";
-        }
-		if (isWinner(P2point,P1point))
-        {
-            score = "Win for player2";
-        }
-		return score;
-	}
 
 	private boolean isWinner(int firstPlayerPoints,int secondPlayerPoints) {
 		return firstPlayerPoints>=4 && secondPlayerPoints>=0 && (firstPlayerPoints-secondPlayerPoints)>=2;
