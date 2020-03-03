@@ -54,14 +54,8 @@ public class Order {
 
 	public float total() {
 		float totalItems = 0;
-		for (OrderItem item : items) {
-			float totalItem=0;
-			float itemAmount = item.getProduct().getUnitPrice() * item.getQuantity();
-			totalItem = getAccessories(item, totalItem, itemAmount);
-			totalItem = getBikes(item, totalItem, itemAmount);
-			totalItem = getCloathing(item, totalItem, itemAmount);
-			totalItems += totalItem;
-		}
+		float totalShipping=0;
+		totalItems = calculateTotalForItems(totalItems);
 
 		if (this.deliveryCountry == "USA"){
 			// total=totalItems + tax + 0 shipping
@@ -72,13 +66,24 @@ public class Order {
 		return totalItems + totalItems * 5 / 100 + 15;
 	}
 
+	private float calculateTotalForItems(float totalItems) {
+		for (OrderItem item : items) {
+			float totalItem=0;
+			float itemAmount = item.getProduct().getUnitPrice() * item.getQuantity();
+			totalItem = getAccessories(item, totalItem, itemAmount);
+			totalItem = getBikes(item, totalItem, itemAmount);
+			totalItem = getCloathing(item, totalItem, itemAmount);
+			totalItems += totalItem;
+		}
+		return totalItems;
+	}
+	
+
+	
 	private float getCloathing(OrderItem item, float totalItem, float itemAmount) {
 		if (item.getProduct().getCategory() == ProductCategory.Cloathing) {
-			float cloathingDiscount = 0;
-			if (item.getQuantity() > 2) {
-				cloathingDiscount = item.getProduct().getUnitPrice();
-			}
-			totalItem = itemAmount - cloathingDiscount;
+			
+			totalItem = itemAmount - item.getProduct().getUnitPrice();
 		}
 		return totalItem;
 	}
@@ -87,17 +92,15 @@ public class Order {
 		if (item.getProduct().getCategory() == ProductCategory.Bikes) {
 			// 20% discount for Bikes
 			totalItem = itemAmount - itemAmount * 20 / 100;
+			
 		}
 		return totalItem;
 	}
 
 	private float getAccessories(OrderItem item, float totalItem, float itemAmount) {
 		if (item.getProduct().getCategory() == ProductCategory.Accessories) {
-			float booksDiscount = 0;
-			if (itemAmount >= 100) {
-				booksDiscount = itemAmount * 10 / 100;
-			}
-			totalItem = itemAmount - booksDiscount;
+			
+			totalItem = itemAmount - itemAmount*10/100;
 		}
 		return totalItem;
 	}
